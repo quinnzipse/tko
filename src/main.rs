@@ -13,6 +13,7 @@ use clap::Parser;
 
 use crate::backend::Backend;
 use crate::backend::gitea::GiteaBackend;
+use crate::backend::github::GithubBackend;
 use crate::cli::{Cli, Command};
 use crate::config::{BackendKind, Config};
 
@@ -53,7 +54,7 @@ fn main() -> anyhow::Result<()> {
 fn build_backend(config: &Config, token: String) -> anyhow::Result<Box<dyn Backend>> {
     match config.backend.kind {
         BackendKind::Gitea => Ok(Box::new(GiteaBackend::new(config, token)?)),
-        BackendKind::Github => anyhow::bail!("the github backend is not yet implemented"),
+        BackendKind::Github => Ok(Box::new(GithubBackend::new(config, token)?)),
         BackendKind::Gitlab => anyhow::bail!("the gitlab backend is not yet implemented"),
     }
 }

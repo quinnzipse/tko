@@ -9,6 +9,7 @@
 #![allow(dead_code)]
 
 pub mod gitea;
+pub mod github;
 
 use time::OffsetDateTime;
 
@@ -61,8 +62,8 @@ pub struct Comment {
 
 /// Abstracts persistence over a git-service issue tracker.
 ///
-/// The CLI is written entirely against this trait; `GiteaBackend` is v1's
-/// only implementation, with GitHub and GitLab deferred behind the same
+/// The CLI is written entirely against this trait; `GiteaBackend` and
+/// `GithubBackend` implement it, with GitLab deferred behind the same
 /// interface. Dependency wiring (`add_dependency` / `remove_dependency` /
 /// `list_dependencies`) is best-effort: a backend that cannot represent
 /// native dependencies cheaply may no-op the writes and return an empty list.
