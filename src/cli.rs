@@ -205,7 +205,7 @@ pub enum Command {
 
     /// Generate a project's `tko.toml`, interactively or from flags.
     Init {
-        /// Backend kind (only `gitea` is supported in v1).
+        /// Backend kind (`gitea` or `github`).
         #[arg(long)]
         kind: Option<String>,
 

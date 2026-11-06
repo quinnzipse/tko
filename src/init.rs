@@ -151,9 +151,9 @@ fn render_toml(
 
 fn validate_kind(kind: &str) -> anyhow::Result<()> {
     match kind.to_lowercase().as_str() {
-        "gitea" => Ok(()),
+        "gitea" | "github" => Ok(()),
         other => {
-            anyhow::bail!("unsupported backend kind '{other}': only 'gitea' is supported in v1")
+            anyhow::bail!("unsupported backend kind '{other}': expected 'gitea' or 'github'")
         }
     }
 }
@@ -237,10 +237,11 @@ mod tests {
     }
 
     #[test]
-    fn validate_kind_only_accepts_gitea() {
+    fn validate_kind_accepts_gitea_and_github_only() {
         assert!(validate_kind("gitea").is_ok());
         assert!(validate_kind("GITEA").is_ok());
-        assert!(validate_kind("github").is_err());
+        assert!(validate_kind("github").is_ok());
+        assert!(validate_kind("gitlab").is_err());
     }
 
     #[test]
